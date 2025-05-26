@@ -56,9 +56,9 @@ tutor --verison
 # Firewall installation
 
 sudo ufw enable
-sudo ufw allow OpenSSh
-sudo ufw allow 80
-sudo ufw allow 443
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
 
 ## check current UFW Configuration
 
