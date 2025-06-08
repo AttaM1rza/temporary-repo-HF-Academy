@@ -78,7 +78,9 @@ pip install "tutor[full]==19.0.2"
 
 Go to firewall settings in plesk (install firewall plugin beforehand) and add a new rule: `Incoming` > `Allow` > `TCP` > `81`
 
+```
 tutor config save --set ENABLE_WEB_PROXY=false --set CADDY_HTTP_PORT=81
+```
 
 ## run tutor [takes up to 10min]
 
@@ -92,9 +94,11 @@ add following DNS records: `A learn 165.22.82.171 DNS only Auto` and `CNAME *.le
 
 under `hosting & dns` > `apache` add following config to both (http & htpps) apache configs
 
+```
 ProxyPreserveHost On
 ProxyPass / http://127.0.0.1:81/
 ProxyPassReverse / http://127.0.0.1:81/
+```
 
 ## verify everything
 
