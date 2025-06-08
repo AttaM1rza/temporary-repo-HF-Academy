@@ -76,7 +76,9 @@ pip install "tutor[full]==19.0.2"
 
 ## setup port 81 for tutor
 
-Go to firewall settings in plesk (install firewall plugin beforehand) and add a new rule: `Incoming` > `Allow` > `TCP` > `81`
+Note make sure port 81 is not in use! to check which ports are in use run `sudo lsof -i -P -n | grep LISTEN`.
+Go to firewall settings in plesk (install firewall plugin beforehand) and add a new rule: `Incoming` > `Allow` > `TCP` > `81`.
+Now configure tutor to use 81 instead of port 80.
 
 ```
 tutor config save --set ENABLE_WEB_PROXY=false --set CADDY_HTTP_PORT=81
