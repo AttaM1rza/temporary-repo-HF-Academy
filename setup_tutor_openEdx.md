@@ -31,6 +31,9 @@ sudo apt-get update
 VERSION_STRING=5:28.1.1-1~ubuntu.24.04~noble
 sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin -y
 
+-> create user based on setup_server.md
+su academy
+
 sudo usermod -aG docker ${USER}
 su - ${USER}
 
@@ -42,18 +45,22 @@ docker-compose --version
 
 # install Tutor
 
-sudo apt install python3 python3-pip libyaml-dev
+sudo apt install python3 python3-pip libyaml-dev -y
 
-sudo apt install python3-venv
+sudo apt install python3-venv -y
 python3 -m venv .venv
 source .venv/bin/activate
 pip install "tutor[full]==19.0.2"
 
 ## check
 
-tutor --verison
+tutor --version
 
 # Firewall installation
+
+-> DO NOT USE UFW INSTALL THE FIREWALL PLUGIN IN PLESK AND USE IT
+GO TO PLESK FIREWALL AND ADD THE PORT TOO AS NEW RULE
+Incoming > Allow > TCP > 81
 
 sudo ufw enable
 sudo ufw allow 22/tcp
@@ -64,7 +71,26 @@ sudo ufw allow 443/tcp
 
 sudo ufw status
 
+# overwrite default ports
+
+tutor config save --set ENABLE_WEB_PROXY=false --set CADDY_HTTP_PORT=81
+
+output:
+(Configuration saved to /home/academy/.local/share/tutor/config.yml
+Environment generated in /home/academy/.local/share/tutor/env)
+
 # Manual Installation Steps
 
 echo "run manually: `tutor local launch`"
 echo "create an admin user by running: `tutor local do createuser --staff --superuser admin admin@admin.com`"
+
+# Now point the domains to the correct server port
+
+create a new domain called learn.xxx.domainEnding
+-> make sure to choose securing www. and all subdomains.
+
+(under hosting & dns > apache)
+add this config to both apache configs:
+ProxyPreserveHost On
+ProxyPass / http://127.0.0.1:81/
+ProxyPassReverse / http://127.0.0.1:81/
