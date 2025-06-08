@@ -2,9 +2,7 @@
 
 
 def main():
-    filepath = input(
-        "Enter filepath, which contains terminal output (EXAMPLE: `/Users/atta/code/hf/scripts/session.txt`): "
-    )
+    filepath = input("Enter filepath, which contains terminal output (EXAMPLE: `./session.txt`): ")
     terminal_command_line_starts = input(
         "Enter terminal command line starts (can be seperated by comma) (EXAMPLE:`(.venv) atta@ubuntuvm:~$,atta@ubuntuvm:~$)`: "
     )
